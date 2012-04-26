@@ -2,14 +2,13 @@ from subprocess import call, Popen, PIPE
 
 def start(name):
 	startcmd="ls"
-	cmd="/usr/bin/screen -dmS " + name + " ; /usr/bin/screen -S " + name + ' -p0 -X stuff "' + startcmd + '"\n'
-
-	call(cmd,shell=True)
+	_create_screen(name)
+	_send_cmd(name, startcmd)
 
 def stop(name):
-	stopcommand=""
-	cmd="/usr/bin/screen -S " + name + ' -p0 -X stuff "' + stopcmd + '"\n'
-
+	stopcmd=""
+	_send_command(name,stopcmd)
+	
 def status(name):
 	if _does_exist(name):
 	    if _is_running(name):
@@ -32,7 +31,10 @@ def _is_running(name):
 	    return False
 
 def _create_screen(name):
-	pass
+	cmd="/usr/bin/screen -dmS " + name
+	call(cmd,shell=True)
 
-def _send_cmd(name, cmd):
-	pass
+
+def _send_cmd(name, command):
+	cmd = "/usr/bin/screen -S " + name + ' -p0 -X stuff "' + command + '"\n'
+	call(cmd,shell=True)
