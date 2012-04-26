@@ -1,12 +1,13 @@
+startcmd=""
+stopcmd=""
+
 from subprocess import call, Popen, PIPE
 
 def start(name):
-	startcmd="ls"
 	_create_screen(name)
 	_send_cmd(name, startcmd)
 
 def stop(name):
-	stopcmd=""
 	_send_command(name,stopcmd)
 	
 def status(name):
